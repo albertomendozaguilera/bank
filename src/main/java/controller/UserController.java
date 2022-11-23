@@ -21,16 +21,14 @@ public class UserController {
 		this.service = service;
 	}
 	
-	//GET /users/1
-	@GetMapping(path = "/user/{id}")
+	@GetMapping(path = "/get_user/{id}")
 	public User retrieveUser(@PathVariable int id){
-		User user = service.findOne(id);
-		
-		if(user == null) {
-			//throw new UserNotFoundException("id: " + id);
-		}
-		
-		return user;
+		return service.findOne(id);
+	}
+	
+	@PostMapping(path = "/sign_in/{email}")
+	public User retrieveUser(@PathVariable String email, @RequestBody String password){
+		return service.checkUser(email, password);
 	}
 		
 	//POST /users

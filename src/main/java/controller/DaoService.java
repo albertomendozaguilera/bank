@@ -21,11 +21,10 @@ public class DaoService {
 	private static int usersCount = 0;
 	
 	static {
-		/*User user = new User("admin", "admin", "bootcamp4", "solera@solera.com", "123456789");
+		User user = new User("admin", "admin", "admin", "password");
 		user.setId(usersCount);
-		//user.addAccountsList(new Account(user, "ES34 1234 1234 1234", 1000));
+		user.setEmail("solera@solera.com");
 		users.add(user);
-		*/
 	}
 	
 	public List<User> findAllUsers(){
@@ -33,8 +32,21 @@ public class DaoService {
 	}
 	
 	public User findOne(int id){
-		Predicate<? super User> predicate = user -> user.getId().equals(id);
-		return users.stream().filter(predicate).findFirst().orElse(null);
+		for(User user : users) {
+			if(user.getId() == id) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
+	public User checkUser(String email, String password){
+		for(User user : users) {
+			if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+					return user;
+			}
+		}
+		return null;
 	}
 	
 	public List<User> findByName(String name){
